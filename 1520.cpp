@@ -44,4 +44,12 @@ int main() {
         }
     }
     cout << dfs(0, 0, map);
+
+    cout << "\n" << "\n";
+    for(int i = 0; i < R; i++) {
+        for(int j = 0; j < C; j++) {
+            cout << dp[i][j] << " ";
+        }
+        cout << "\n";
+    }
 }
