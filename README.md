@@ -2,4 +2,4 @@
 
 **↓ 풀이 ↓**
 
-*[개발새발👩🏻‍💻](https://younginstudy.tistory.com/)*
+*[22nEE](https://younginstudy.tistory.com/)*
