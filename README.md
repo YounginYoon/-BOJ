@@ -2,4 +2,4 @@
 
 **↓ 풀이 ↓**
 
-*[22nEE](https://younginstudy.tistory.com/)*
+*[:)](https://younginstudy.tistory.com/)*
