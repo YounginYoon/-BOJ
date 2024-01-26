@@ -6,6 +6,5 @@ def solution(participant, completion):
     for p, c in zip(participant, completion):
         if p != c:
             return p
-    return participant[-1]
-    
+    answer = participant[-1]
     return answer
