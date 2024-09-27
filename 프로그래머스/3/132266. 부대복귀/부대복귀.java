@@ -1,49 +1,45 @@
 import java.util.*;
 
 class Solution {
-    private static List<List<Integer>> graph;
-    private static int[] dis;
-    private static final int MAX = 1_000_000_000;
-
-    public static int[] solution(int n, int[][] roads, int[] sources, int destination) {
-
-        graph = new ArrayList<>();
-        for(int i=0; i<n+1; i++) graph.add(new ArrayList<>());
-
-        for (int[] road : roads) {
-            int s = road[0];
-            int e = road[1];
-
-            graph.get(s).add(e);
-            graph.get(e).add(s);
+    public int[] solution(int n, int[][] roads, int[] sources, int destination) {
+        int[] answer = new int[sources.length];
+        List<List<Integer>> path = new ArrayList<>();
+        for(int i=0;i<n+1;i++) path.add(new ArrayList<>());
+        for(int i=0;i<roads.length;i++) {
+            int[] road = roads[i];
+            int a = road[0], b = road[1];
+            path.get(a).add(b);
+            path.get(b).add(a);
         }
-
-        dis = new int[n+1];
-        Arrays.fill(dis, MAX);
-        dijkstra(destination);
-
-        int[] ans = new int[sources.length];
-        for (int i = 0; i < sources.length; i++) {
-            ans[i] = (dis[sources[i]] < MAX) ? dis[sources[i]] : -1;
+        
+        int[] dist = dijkstra(path, destination, n);
+        for(int i=0;i<sources.length;i++) {
+            int x = sources[i];
+            if (dist[x] == Integer.MAX_VALUE) answer[i] = -1;
+            else answer[i] = dist[x];
         }
-        return ans;
+        return answer;
     }
-
-    private static void dijkstra(int destination) {
-        Queue<Integer> qu = new LinkedList<>();
-        qu.add(destination);
-        dis[destination] = 0;
-
-        while (!qu.isEmpty()){
-            int cn = qu.poll();
-
-            for(int i=0; i<graph.get(cn).size(); i++){
-                int nn = graph.get(cn).get(i);
-                if(dis[nn] > dis[cn]+1){
-                    dis[nn] = dis[cn]+1;
-                    qu.add(nn);
+    
+    public int[] dijkstra(List<List<Integer>> path, int start, int n) {
+        int[] dist = new int[n + 1];
+        
+        Arrays.fill(dist, Integer.MAX_VALUE);    
+        Queue<Integer> q = new PriorityQueue<>(); // 0: dist, 1: node number
+        q.add(start);
+        dist[start] = 0;
+        
+        while(!q.isEmpty()) {
+            int cur = q.poll();
+            
+            for(int next: path.get(cur)) {
+                if (dist[cur] + 1 < dist[next]) {
+                    dist[next] = dist[cur] + 1;
+                    q.add(next);
                 }
             }
         }
+        
+        return dist;
     }
 }
